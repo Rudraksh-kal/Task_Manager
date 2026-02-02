@@ -1,4 +1,4 @@
-# Task Manager App
+# Taskify
 
 A full-stack Task Manager application built with **Node.js, Express, MongoDB, and vanilla JavaScript**.  
 It supports user authentication, task management, and a clean modal-based UI.
