@@ -34,15 +34,39 @@ It supports user authentication, task management, and a clean modal-based UI.
 
 ## 📁 Project Structure
 
-.
-├ TASK_MANAGER_GLOBAL
-├── css
-│   │   ├── style.css
-│   └── js
-│       ├── app.js
-├── backend
-├── index.html
+```txt
+Task_Manager/
+│
+├── frontend/
+│   ├── index.html
+│   │
+│   ├── css/
+│   │   └── style.css
+│   │
+│   └── js/
+│       └── app.js
+│
+├── backend/
+│   ├── server.js
+│   ├── package.json
+│   ├── package-lock.json
+│   │
+│   ├── routes/
+│   │   ├── auth.js
+│   │   └── tasks.js
+│   │
+│   ├── models/
+│   │   ├── User.js
+│   │   └── Task.js
+│   │
+│   ├── middleware/
+│   │   └── authMiddleware.js
+│   │
+│   └── .env   (ignored by git)
+│
+├── .gitignore
 └── README.md
+```
 
 ---
 
