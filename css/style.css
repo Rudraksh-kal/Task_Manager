@@ -1,0 +1,693 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* =====================
+   THEME VARIABLES
+===================== */
+
+:root {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #64748b;
+    --primary: #6366f1;
+    --border: #e5e7eb;
+    --shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+body.dark {
+    --bg: #020617;
+    --card: #020617;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --border: #1e293b;
+    --shadow: none;
+}
+
+/* =====================
+   GLOBAL
+===================== */
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =====================
+   HEADER
+===================== */
+
+header {
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(12px);
+    padding: 1.2rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+body.dark header {
+    background: rgba(2,6,23,0.6);
+}
+
+.logo {
+    font-size: 1.45rem;
+    font-weight: 800;
+    text-decoration: none;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    background: linear-gradient(
+        135deg,
+        rgba(99,102,241,0.9),
+        rgba(34,197,94,0.9)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+header button {
+    font-size: 1.3rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* =====================
+   MAIN
+===================== */
+
+main {
+    max-width: 900px;
+    margin: 2.5rem auto;
+    padding: 0 1.2rem;
+}
+
+/* =====================
+   SECTIONS
+===================== */
+
+section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.4rem;
+    margin-bottom: 1.6rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: visible;
+}
+
+section:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+section h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* =====================
+   FORMS
+===================== */
+
+form {
+    display: grid;
+    gap: 0.8rem;
+}
+
+input,
+textarea,
+select {
+    padding: 0.65rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+textarea {
+    resize: none;
+    height: 80px;
+}
+
+button[type="submit"] {
+    margin-top: 0.4rem;
+    padding: 0.7rem;
+    border-radius: 10px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* =====================
+   FILTERS
+===================== */
+
+.task-filters {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.8rem;
+}
+
+.filter-btn {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+    color: var(--text);
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.filter-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* =====================
+   TASK LIST
+===================== */
+
+.task-row {
+    position: relative;
+    overflow: visible;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--border);
+    animation: taskIn 0.25s ease-out;
+    transition: transform 0.2s ease;
+}
+
+
+.task-row:first-of-type {
+    border-top: none;
+}
+
+@keyframes taskIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.task-main {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.2rem;
+}
+
+.task-text {
+    max-width: 70%;
+}
+
+.task-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.task-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+.task-right {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* =====================
+   STATUS
+===================== */
+
+.status-wrapper {
+    position: relative;
+    z-index: auto;
+}
+
+.task-row:has(.status-dropdown.show) .status-wrapper {
+    z-index: 1000;
+}
+
+.status-badge {
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    color: white;
+    text-transform: capitalize;
+    position: relative;
+    z-index: 1;
+}
+
+
+.pending { background: #f59e0b; }
+.in-progress { background: #3b82f6; }
+.completed { background: #22c55e; }
+
+.status-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.3rem;
+    box-shadow: var(--shadow);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 999;
+}
+
+.status-dropdown.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.status-dropdown button {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    color: var(--text);
+}
+
+.status-dropdown button:hover {
+    background: rgba(99,102,241,0.12);
+}
+
+/* =====================
+   ICONS & BUTTONS
+===================== */
+
+button,
+.modal-btn,
+.login-btn,
+.icon-btn {
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+button:hover,
+.modal-btn:hover,
+.login-btn:hover {
+    transform: translateY(-1px);
+}
+
+button:active,
+.modal-btn:active {
+    transform: scale(0.96);
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+.icon-btn:hover {
+    opacity: 1;
+}
+
+/* =====================
+   MODALS
+===================== */
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 1000;
+}
+
+.modal-backdrop.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 1.6rem;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: var(--shadow);
+    animation: modalIn 0.25s ease-out;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =====================
+   AUTH UI
+===================== */
+
+.login-btn {
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.login-btn:hover {
+    background: rgba(99,102,241,0.12);
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #22c55e);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* =====================
+   AUTH MODAL
+===================== */
+
+#authModal .modal {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 1.6rem;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: var(--shadow);
+    animation: modalIn 0.25s ease-out;
+}
+
+#authModal h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+#authModal form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+#authModal input {
+    width: 100%;
+    padding: 0.7rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+#authModal input::placeholder {
+    color: var(--muted);
+}
+
+#authModal input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
+}
+
+/* switch text */
+
+.auth-switch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+}
+
+.auth-switch button {
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0;
+}
+
+.auth-switch button:hover {
+    text-decoration: underline;
+}
+
+/* buttons */
+
+#authModal .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    margin-top: 0.8rem;
+}
+
+#authModal .modal-btn {
+    min-width: 100px;
+    height: 38px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* cancel */
+
+#authModal .modal-cancel {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+/* continue */
+
+#authModal .modal-save {
+    background: var(--primary);
+    color: white;
+    border: none;
+}
+
+/* hover + active */
+
+#authModal .modal-btn:hover {
+    transform: translateY(-1px);
+}
+
+#authModal .modal-btn:active {
+    transform: scale(0.96);
+}
+/* ===== Login Required Modal ===== */
+
+#loginRequiredModal .modal {
+    max-width: 340px;
+    text-align: center;
+}
+
+#loginRequiredModal h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+}
+
+.login-msg {
+    margin: 0.6rem 0 1.4rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+/* Button spacing */
+#loginRequiredModal .modal-actions {
+    display: flex;
+    justify-content: center;
+}
+
+
+/* Smooth scale-in (matches other modals) */
+#loginRequiredModal .modal {
+    transform: translateY(12px) scale(0.96);
+    opacity: 0;
+    transition: all 0.25s ease;
+}
+
+#loginRequiredModal.show .modal {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+#loginRequiredModal .modal-btn {
+    all: unset;
+    min-width: 100px;
+    height: 38px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#loginRequiredModal .modal-save {
+    background: var(--primary);
+    color: white;
+}
+/* Cancel button */
+#logoutModal .modal-cancel {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+/* Confirm button */
+#logoutModal .modal-save {
+    background: var(--primary);
+    color: white;
+    border: none;
+}
+
+/* Hover + active (same as auth modal) */
+#logoutModal .modal-btn:hover {
+    transform: translateY(-1px);
+}
+
+#logoutModal .modal-btn:active {
+    transform: scale(0.96);
+}
+#logoutModal .modal-btn {
+    min-width: 100px;
+    height: 38px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+/* ===== Logout Modal ===== */
+
+#logoutModal .modal {
+    max-width: 340px;
+    text-align: center;
+}
+
+#logoutModal h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+}
+
+#logoutModal .logout-text {
+    margin: 0.6rem 0 1.4rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+/* Center buttons (auth modal uses flex-end) */
+#logoutModal .modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+}
+
+
+
+
+
+/* =====================
+   RESPONSIVE
+===================== */
+
+@media (max-width: 640px) {
+    .task-main {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .task-text {
+        max-width: 100%;
+    }
+
+    .task-right {
+        margin-top: 0.4rem;
+    }
+}
