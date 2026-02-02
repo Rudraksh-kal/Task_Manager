@@ -34,30 +34,21 @@ It supports user authentication, task management, and a clean modal-based UI.
 
 ## 📁 Project Structure
 
-Task_Manager/
-│
-├── frontend/
-│ ├── index.html
-│ ├── css/
-│ │ └── style.css
-│ └── js/
-│ └── app.js
-│
-├── backend/
-│ ├── server.js
-│ ├── routes/
-│ ├── models/
-│ ├── middleware/
-│ ├── package.json
-│ └── .env
-│
+.
+├ TASK_MANAGER_GLOBAL
+├── css
+│   │   ├── style.css
+│   └── js
+│       ├── app.js
+├── backend
+├── index.html
 └── README.md
 
 ---
 
 ## ⚙️ Setup Instructions
 
-### 1️⃣ Clone the repository
+### Clone the repository
 ```bash
 git clone https://github.com/YOUR_USERNAME/Task_Manager.git
 cd Task_Manager
@@ -67,12 +58,5 @@ node server.js
 
 ---
 
-## ✅ Next step
-1. Create `README.md` in root folder
-2. Paste this content
-3. Run:
-```bash
-git add README.md
-git commit -m "Add README"
-git push
+
 
